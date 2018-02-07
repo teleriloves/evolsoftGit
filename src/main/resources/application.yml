@@ -1,0 +1,13 @@
+spring:
+    jpa:
+        database: MYSQL
+        format-sql: true
+        hibernate:
+            ddl-auto: create
+            dialect: org.hibernate.dialect.MySQL5Dialect
+
+    datasource:
+        url: jdbc:mysql://localhost:3306/concesionario
+        username: root
+        password: evolsoft
+driver-class-name: com.mysql.jdbc.Driver
