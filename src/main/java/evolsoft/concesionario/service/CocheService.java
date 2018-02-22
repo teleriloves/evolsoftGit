@@ -21,5 +21,15 @@ public interface CocheService {
 	public Coche map(CocheDTO coche);
 	
 	public CocheDTO map(Coche coche);
+	
+	public List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice);
+	
+	public List<CocheDTO> findCochesInStock();
+	
+	public List<CocheDTO> listCochesSortedByPrice(Integer page, Integer size);
+	
+	public List<CocheDTO> findCarsAlreadySold();
+	
+	public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor);
 
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import evolsoft.concesionario.dto.VendedorDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
-import evolsoft.concesionario.model.Vendedor;
+import evolsoft.concesionario.model.Actor;
 
 public interface VendedorService {
 	
@@ -19,9 +19,9 @@ public interface VendedorService {
 	
 	void delete(Integer idVendedor);
 	
-	public Vendedor map(VendedorDTO vendedor);
+	public Actor map(VendedorDTO vendedor);
 	
-	public VendedorDTO map(Vendedor vendedor);
+	public VendedorDTO map(Actor vendedor);
 
 
 

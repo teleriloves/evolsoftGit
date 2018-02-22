@@ -1,6 +1,9 @@
 package evolsoft.concesionario.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,5 +73,76 @@ public class CocheServiceImpl implements CocheService {
 	public CocheDTO map(Coche coche) {
 		return dozer.map(coche, CocheDTO.class);
 	}
+	
+	@Override
+	public List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice)
+	{
+		List<Coche> coches = cocheDAO.findCarsBtwPriceRange(minPrice, maxPrice);
+		final List<CocheDTO> cochesInRange = new ArrayList<>();
+		coches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			cochesInRange.add(cocheDTO);
+		});
+		
+		return cochesInRange;	
+	}
+
+	@Override
+	public List<CocheDTO> findCochesInStock() {
+		
+		List<Coche> coches = cocheDAO.findCarsInStock();
+		final List<CocheDTO> cochesInStock = new ArrayList<>();
+		coches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			cochesInStock.add(cocheDTO);
+		});
+		
+		return cochesInStock;
+		
+	}
+
+	@Override
+	public List<CocheDTO> listCochesSortedByPrice(Integer page, Integer size) {
+		final Iterable<Coche> allCoches = cocheDAO.listCarsSortedByPrice();
+		final List<CocheDTO> coches = new ArrayList<>();
+		allCoches.forEach(coche -> 
+			{
+				final CocheDTO cocheDTO = map(coche);
+				coches.add(cocheDTO);
+			});
+		return coches;
+	}
+
+	@Override
+	public List<CocheDTO> findCarsAlreadySold() {
+		List<Coche> coches = cocheDAO.findCarsAlreadySold();
+		final List<CocheDTO> cochesInStock = new ArrayList<>();
+		coches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			cochesInStock.add(cocheDTO);
+		});
+		
+		return cochesInStock;
+	}
+
+	@Override
+	public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor) {
+		
+		CocheDTO soldCarDTO = map(cocheDAO.findOne(idCoche));
+		soldCarDTO.setFechaVenta(todayDate());
+		update(idCoche, soldCarDTO);
+		
+	}
+	
+	public String todayDate()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		String todayDate = dateFormat.format(new Date()); 
+		return todayDate;
+	}
+	
+	
+	
+	
 	
 }
