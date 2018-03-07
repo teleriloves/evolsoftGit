@@ -75,33 +75,6 @@ public class CocheServiceImpl implements CocheService {
 	}
 	
 	@Override
-	public List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice)
-	{
-		List<Coche> coches = cocheDAO.findCarsBtwPriceRange(minPrice, maxPrice);
-		final List<CocheDTO> cochesInRange = new ArrayList<>();
-		coches.forEach(coche -> {
-			final CocheDTO cocheDTO = map(coche);
-			cochesInRange.add(cocheDTO);
-		});
-		
-		return cochesInRange;	
-	}
-
-	@Override
-	public List<CocheDTO> findCochesInStock() {
-		
-		List<Coche> coches = cocheDAO.findCarsInStock();
-		final List<CocheDTO> cochesInStock = new ArrayList<>();
-		coches.forEach(coche -> {
-			final CocheDTO cocheDTO = map(coche);
-			cochesInStock.add(cocheDTO);
-		});
-		
-		return cochesInStock;
-		
-	}
-
-	@Override
 	public List<CocheDTO> listCochesSortedByPrice(Integer page, Integer size) {
 		final Iterable<Coche> allCoches = cocheDAO.listCarsSortedByPrice();
 		final List<CocheDTO> coches = new ArrayList<>();
@@ -141,7 +114,32 @@ public class CocheServiceImpl implements CocheService {
 		return todayDate;
 	}
 	
-	
+	@Override
+	public List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice)
+	{
+		List<Coche> coches = cocheDAO.findCarsBtwPriceRange(minPrice, maxPrice);
+		final List<CocheDTO> cochesInRange = new ArrayList<>();
+		coches.forEach(coche -> {
+			CocheDTO cocheDTO = map(coche);
+			cochesInRange.add(cocheDTO);
+		});
+		
+		return cochesInRange;	
+	}
+
+	@Override
+	public List<CocheDTO> findCochesInStock() {
+		
+		List<Coche> coches = cocheDAO.findCarsInStock();
+		final List<CocheDTO> cochesInStock = new ArrayList<>();
+		coches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			cochesInStock.add(cocheDTO);
+		});
+		
+		return cochesInStock;
+		
+	}
 	
 	
 	
