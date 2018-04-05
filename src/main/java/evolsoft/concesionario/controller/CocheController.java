@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.xml.bind.v2.runtime.SwaRefAdapter;
-
 import evolsoft.concesionario.dto.CocheDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
 import evolsoft.concesionario.service.CocheService;
@@ -19,7 +17,7 @@ import evolsoft.concesionario.service.CocheService;
 @RestController
 @RequestMapping(value = "api/coche")
 public class CocheController {
-	
+
 	@Autowired
 	private CocheService cocheService;
 
@@ -59,22 +57,5 @@ public class CocheController {
 	public List<CocheDTO> findCarsAlreadySold() {
 		return cocheService.findCarsAlreadySold();
 	}
-	
-//	@RequestMapping(value = "/{id}/sellCar", method = RequestMethod.GET)
-//	public void sellCar(@PathVariable("id") Integer idCoche, @RequestParam(required = true) Integer idCliente,
-//			@RequestParam(required = true) Integer idVendedor) throws NotFoundExcept {
-//		cocheService.newSell(idCoche, idCliente, idVendedor);
-//	}
-//
-//	@RequestMapping(value = "/inRange", method = RequestMethod.GET)
-//	public List<CocheDTO> findCochesInPriceRange(@RequestParam(required = true) Integer min,
-//			@RequestParam(required = true) Integer max) {
-//		return (min < max) ? cocheService.findCochesInPriceRange(min, max) : cocheService.findCochesInPriceRange(max, min);
-//	}
-//
-//	@RequestMapping(value = "/stock", method = RequestMethod.GET)
-//	public List<CocheDTO> findCochesInStock() {
-//		return cocheService.findCochesInStock();
-//	}
-	
+
 }

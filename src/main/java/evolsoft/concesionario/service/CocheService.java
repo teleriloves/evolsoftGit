@@ -25,5 +25,9 @@ public interface CocheService {
 	public List<CocheDTO> listCochesSortedByPrice(Integer page, Integer size);
 
 	public List<CocheDTO> findCarsAlreadySold();
-	
+
+	List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice);
+
+	List<CocheDTO> findCochesInStock();
+
 }
