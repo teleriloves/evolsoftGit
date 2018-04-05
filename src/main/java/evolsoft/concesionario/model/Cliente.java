@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente extends Actor {
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Coche> coches = new ArrayList<>();
 
@@ -23,5 +23,5 @@ public class Cliente extends Actor {
 	public void setCoches(List<Coche> coches) {
 		this.coches = coches;
 	}
-	
+
 }

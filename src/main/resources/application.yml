@@ -9,5 +9,5 @@ spring:
     datasource:
         url: jdbc:mysql://localhost:3306/concesionario
         username: root
-        password: evolsoft
+        password: teleri
 driver-class-name: com.mysql.jdbc.Driver

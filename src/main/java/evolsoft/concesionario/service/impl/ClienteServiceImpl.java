@@ -16,18 +16,18 @@ import evolsoft.concesionario.model.Cliente;
 import evolsoft.concesionario.service.ClienteService;
 
 @Service
-public class ClienteServiceImpl implements ClienteService{
-	
+public class ClienteServiceImpl implements ClienteService {
+
 	@Autowired
 	private ClienteDAO clienteDAO;
-	
+
 	@Autowired
 	private DozerBeanMapper dozer;
-	
+
 	@Override
 	public ClienteDTO findById(Integer id) throws NotFoundExcept {
 		final Cliente cliente = Optional.ofNullable(clienteDAO.findOne(id))
-										  .orElseThrow(() -> new NotFoundExcept("Cliente con id "+id+" no encontrado"));
+				.orElseThrow(() -> new NotFoundExcept("Cliente con id " + id + " no encontrado"));
 		return map(cliente);
 	}
 
@@ -35,11 +35,10 @@ public class ClienteServiceImpl implements ClienteService{
 	public List<ClienteDTO> findAll(Integer page, Integer size) {
 		final Iterable<Cliente> allClientes = clienteDAO.findAll(PageReqConfig.newPageRequest(page, size));
 		final List<ClienteDTO> clientes = new ArrayList<>();
-		allClientes.forEach(cliente -> 
-			{
-				final ClienteDTO clienteDTO = map(cliente);
-				clientes.add(clienteDTO);
-			});
+		allClientes.forEach(cliente -> {
+			final ClienteDTO clienteDTO = map(cliente);
+			clientes.add(clienteDTO);
+		});
 		return clientes;
 	}
 

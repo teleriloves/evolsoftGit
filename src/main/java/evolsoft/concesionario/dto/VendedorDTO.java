@@ -1,17 +1,15 @@
 package evolsoft.concesionario.dto;
 
-
-
 public class VendedorDTO {
-	
+
 	private Integer id;
 
 	private String dni;
-	
+
 	private String nombre;
-	
+
 	private Integer tlf;
-	
+
 	private String email;
 
 	public Integer getId() {
@@ -53,5 +51,5 @@ public class VendedorDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

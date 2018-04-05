@@ -6,31 +6,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import evolsoft.concesionario.configuration.PageReqConfig;
 import evolsoft.concesionario.dao.CocheDAO;
+import evolsoft.concesionario.dto.ClienteDTO;
 import evolsoft.concesionario.dto.CocheDTO;
+import evolsoft.concesionario.dto.VendedorDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
 import evolsoft.concesionario.model.Coche;
+import evolsoft.concesionario.service.ClienteService;
 import evolsoft.concesionario.service.CocheService;
+import evolsoft.concesionario.service.VendedorService;
 
 @Service
 public class CocheServiceImpl implements CocheService {
 
 	@Autowired
 	private CocheDAO cocheDAO;
-	
+
+	@Autowired
+	private ClienteService clienteService;
+
+	@Autowired
+	private VendedorService vendedorService;
+
 	@Autowired
 	private DozerBeanMapper dozer;
-	
+
 	@Override
 	public CocheDTO findById(Integer id) throws NotFoundExcept {
 		final Coche coche = Optional.ofNullable(cocheDAO.findOne(id))
-										  .orElseThrow(() -> new NotFoundExcept("Coche con id "+id+" no encontrado"));
+				.orElseThrow(() -> new NotFoundExcept("Coche con id " + id + " no encontrado"));
 		return map(coche);
 	}
 
@@ -38,11 +46,10 @@ public class CocheServiceImpl implements CocheService {
 	public List<CocheDTO> findAll(Integer page, Integer size) {
 		final Iterable<Coche> allCoches = cocheDAO.findAll(PageReqConfig.newPageRequest(page, size));
 		final List<CocheDTO> coches = new ArrayList<>();
-		allCoches.forEach(coche -> 
-			{
-				final CocheDTO cocheDTO = map(coche);
-				coches.add(cocheDTO);
-			});
+		allCoches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			coches.add(cocheDTO);
+		});
 		return coches;
 	}
 
@@ -73,43 +80,15 @@ public class CocheServiceImpl implements CocheService {
 	public CocheDTO map(Coche coche) {
 		return dozer.map(coche, CocheDTO.class);
 	}
-	
-	@Override
-	public List<CocheDTO> findCochesInPriceRange(Integer minPrice, Integer maxPrice)
-	{
-		List<Coche> coches = cocheDAO.findCarsBtwPriceRange(minPrice, maxPrice);
-		final List<CocheDTO> cochesInRange = new ArrayList<>();
-		coches.forEach(coche -> {
-			final CocheDTO cocheDTO = map(coche);
-			cochesInRange.add(cocheDTO);
-		});
-		
-		return cochesInRange;	
-	}
-
-	@Override
-	public List<CocheDTO> findCochesInStock() {
-		
-		List<Coche> coches = cocheDAO.findCarsInStock();
-		final List<CocheDTO> cochesInStock = new ArrayList<>();
-		coches.forEach(coche -> {
-			final CocheDTO cocheDTO = map(coche);
-			cochesInStock.add(cocheDTO);
-		});
-		
-		return cochesInStock;
-		
-	}
 
 	@Override
 	public List<CocheDTO> listCochesSortedByPrice(Integer page, Integer size) {
 		final Iterable<Coche> allCoches = cocheDAO.listCarsSortedByPrice();
 		final List<CocheDTO> coches = new ArrayList<>();
-		allCoches.forEach(coche -> 
-			{
-				final CocheDTO cocheDTO = map(coche);
-				coches.add(cocheDTO);
-			});
+		allCoches.forEach(coche -> {
+			final CocheDTO cocheDTO = map(coche);
+			coches.add(cocheDTO);
+		});
 		return coches;
 	}
 
@@ -121,28 +100,7 @@ public class CocheServiceImpl implements CocheService {
 			final CocheDTO cocheDTO = map(coche);
 			cochesInStock.add(cocheDTO);
 		});
-		
 		return cochesInStock;
 	}
 
-	@Override
-	public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor) {
-		
-		CocheDTO soldCarDTO = map(cocheDAO.findOne(idCoche));
-		soldCarDTO.setFechaVenta(todayDate());
-		update(idCoche, soldCarDTO);
-		
-	}
-	
-	public String todayDate()
-	{
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-		String todayDate = dateFormat.format(new Date()); 
-		return todayDate;
-	}
-	
-	
-	
-	
-	
 }

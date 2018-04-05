@@ -9,30 +9,29 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Coche {
-
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private Integer numBastidor;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String matricula;
-	
+
 	private String marca;
-	
+
 	private String modelo;
-	
+
 	private String motor;
-	
+
 	private String fechaVenta;
-	
+
 	private Double precio;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Vendedor vendedor;
 
@@ -115,5 +114,5 @@ public class Coche {
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
 	}
-	
+
 }

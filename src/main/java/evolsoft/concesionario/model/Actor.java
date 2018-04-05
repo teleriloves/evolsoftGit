@@ -17,26 +17,22 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(
-		discriminatorType = DiscriminatorType.INTEGER,
-		name = "person_type_id",
-		columnDefinition = "TINYINT(1)"
-		)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "person_type_id", columnDefinition = "TINYINT(1)")
 public class Actor {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer id;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String dni;
-	
+
 	private String nombre;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private Integer tlf;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String email;
 
 	public Integer getId() {

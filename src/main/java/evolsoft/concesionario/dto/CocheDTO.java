@@ -1,24 +1,21 @@
 package evolsoft.concesionario.dto;
 
-
-
 public class CocheDTO {
-	
 
 	private Integer id;
-	
+
 	private Integer numBastidor;
 
 	private String matricula;
-	
+
 	private String marca;
-	
+
 	private String modelo;
-	
+
 	private String motor;
-	
+
 	private String fechaVenta;
-	
+
 	private Double precio;
 
 	public Integer getId() {
@@ -84,5 +81,5 @@ public class CocheDTO {
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-	
+
 }

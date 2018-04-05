@@ -12,46 +12,45 @@ import evolsoft.concesionario.configuration.PageReqConfig;
 import evolsoft.concesionario.dao.VendedorDAO;
 import evolsoft.concesionario.dto.VendedorDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
-import evolsoft.concesionario.model.Actor;
+import evolsoft.concesionario.model.Vendedor;
 import evolsoft.concesionario.service.VendedorService;
 
 @Service
 public class VendedorServiceImpl implements VendedorService {
-	
+
 	@Autowired
 	private VendedorDAO vendedorDAO;
-	
+
 	@Autowired
 	private DozerBeanMapper dozer;
-	
+
 	@Override
 	public VendedorDTO findById(Integer id) throws NotFoundExcept {
-		final Actor vendedor = Optional.ofNullable(vendedorDAO.findOne(id))
-										  .orElseThrow(() -> new NotFoundExcept("Vendedor con id "+id+" no encontrado"));
+		final Vendedor vendedor = Optional.ofNullable(vendedorDAO.findOne(id))
+				.orElseThrow(() -> new NotFoundExcept("Vendedor con id " + id + " no encontrado"));
 		return map(vendedor);
 	}
 
 	@Override
 	public List<VendedorDTO> findAll(Integer page, Integer size) {
-		final Iterable<Actor> allVendedores = vendedorDAO.findAll(PageReqConfig.newPageRequest(page, size));
+		final Iterable<Vendedor> allVendedores = vendedorDAO.findAll(PageReqConfig.newPageRequest(page, size));
 		final List<VendedorDTO> vendedores = new ArrayList<>();
-		allVendedores.forEach(vendedor -> 
-			{
-				final VendedorDTO vendedorDTO = map(vendedor);
-				vendedores.add(vendedorDTO);
-			});
+		allVendedores.forEach(vendedor -> {
+			final VendedorDTO vendedorDTO = map(vendedor);
+			vendedores.add(vendedorDTO);
+		});
 		return vendedores;
 	}
 
 	@Override
 	public VendedorDTO create(VendedorDTO vendedorDTO) {
-		final Actor vendedor = map(vendedorDTO);
+		final Vendedor vendedor = map(vendedorDTO);
 		return map(vendedorDAO.save(vendedor));
 	}
 
 	@Override
 	public void update(Integer id, VendedorDTO vendedorDTO) {
-		final Actor vendedor = map(vendedorDTO);
+		final Vendedor vendedor = map(vendedorDTO);
 		vendedor.setId(id);
 		vendedorDAO.save(vendedor);
 	}
@@ -62,12 +61,12 @@ public class VendedorServiceImpl implements VendedorService {
 	}
 
 	@Override
-	public Actor map(VendedorDTO vendedorDTO) {
-		return dozer.map(vendedorDTO, Actor.class);
+	public Vendedor map(VendedorDTO vendedorDTO) {
+		return dozer.map(vendedorDTO, Vendedor.class);
 	}
 
 	@Override
-	public VendedorDTO map(Actor vendedor) {
+	public VendedorDTO map(Vendedor vendedor) {
 		return dozer.map(vendedor, VendedorDTO.class);
 	}
 

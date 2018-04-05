@@ -10,7 +10,7 @@ public class DozerConfig {
 	@Bean
 	public DozerBeanMapper dozer()
 	{
-		return new DozerBeanMapper();
+		 return new DozerBeanMapper();
 	}
 	
 }

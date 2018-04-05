@@ -1,15 +1,15 @@
 package evolsoft.concesionario.dto;
 
 public class ClienteDTO {
-	
+
 	private Integer id;
 
 	private String dni;
-	
+
 	private String nombre;
-	
+
 	private Integer tlf;
-	
+
 	private String email;
 
 	public Integer getId() {

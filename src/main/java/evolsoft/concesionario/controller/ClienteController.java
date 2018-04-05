@@ -17,38 +17,34 @@ import evolsoft.concesionario.service.ClienteService;
 @RestController
 @RequestMapping(value = "api/cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ClienteDTO> retrieveAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size)
-	{
+	public List<ClienteDTO> retrieveAll(@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer size) {
 		return clienteService.findAll(page, size);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ClienteDTO findOne(@PathVariable("id") Integer id) throws NotFoundExcept
-	{
+	public ClienteDTO findOne(@PathVariable("id") Integer id) throws NotFoundExcept {
 		return clienteService.findById(id);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ClienteDTO create(@RequestBody ClienteDTO clienteDTO)
-	{
+	public ClienteDTO create(@RequestBody ClienteDTO clienteDTO) {
 		return clienteService.create(clienteDTO);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable("id") Integer id, @RequestBody ClienteDTO clienteDTO)
-	{
-		clienteService.update(id,clienteDTO);
+	public void update(@PathVariable("id") Integer id, @RequestBody ClienteDTO clienteDTO) {
+		clienteService.update(id, clienteDTO);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void update(@PathVariable("id") Integer id)
-	{
+	public void update(@PathVariable("id") Integer id) {
 		clienteService.delete(id);
 	}
-	
+
 }
