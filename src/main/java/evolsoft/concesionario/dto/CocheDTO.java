@@ -1,5 +1,8 @@
 package evolsoft.concesionario.dto;
 
+import evolsoft.concesionario.model.Cliente;
+import evolsoft.concesionario.model.Vendedor;
+
 public class CocheDTO {
 
 	private Integer id;
@@ -17,6 +20,10 @@ public class CocheDTO {
 	private String fechaVenta;
 
 	private Double precio;
+	
+	private Cliente cliente;
+	
+	private Vendedor vendedor;
 
 	public Integer getId() {
 		return id;
@@ -24,6 +31,22 @@ public class CocheDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
 	}
 
 	public Integer getNumBastidor() {
