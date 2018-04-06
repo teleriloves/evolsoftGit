@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import evolsoft.concesionario.dto.CocheDTO;
+import evolsoft.concesionario.dto.SoldCarDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
 import evolsoft.concesionario.service.CocheService;
 
@@ -58,10 +59,9 @@ public class CocheController {
 		return cocheService.findCarsAlreadySold();
 	}
 
-	@RequestMapping(value = "/{id}/sellCar", method = RequestMethod.GET)
-	public void sellCar(@PathVariable("id") Integer idCoche, @RequestParam(required = true) Integer idCliente,
-			@RequestParam(required = true) Integer idVendedor) throws NotFoundExcept {
-		cocheService.newSell(idCoche, idCliente, idVendedor);
+	@RequestMapping(value = "/sellCar", method = RequestMethod.PUT)
+	public void sellCar(@RequestBody SoldCarDTO soldCarDTO) throws NotFoundExcept {
+		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(), soldCarDTO.getIdVendedor());
 	}
 
 }
