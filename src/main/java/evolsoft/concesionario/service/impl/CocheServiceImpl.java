@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.dozer.DozerBeanMapper;
@@ -73,10 +74,7 @@ public class CocheServiceImpl implements CocheService {
 
 	@Override
 	public Coche map(CocheDTO cocheDTO) {
-		Coche coche = dozer.map(cocheDTO, Coche.class);
-		coche.setCliente(cocheDTO.getCliente());
-		coche.setVendedor(cocheDTO.getVendedor());
-		return coche;
+		return dozer.map(cocheDTO, Coche.class);
 	}
 
 	@Override
@@ -131,10 +129,10 @@ public class CocheServiceImpl implements CocheService {
 	@Override
 	public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor) throws NotFoundExcept {
 		Coche soldCar = Optional.ofNullable(cocheDAO.findOne(idCoche)).orElseThrow(() -> new NotFoundExcept());
-		soldCar.setFechaVenta(todaysDate());
+		soldCar.setFechaVenta(LocalDate.now().toString());
 		addClienteToSoldCar(idCliente, soldCar);
 		addVendedorToSoldCar(idVendedor, soldCar);
-		update(idCoche, map(soldCar));
+		cocheDAO.save(soldCar);
 	}
 
 	public void addClienteToSoldCar(Integer idCliente, Coche coche) throws NotFoundExcept {
@@ -150,7 +148,9 @@ public class CocheServiceImpl implements CocheService {
 	public String todaysDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 		String todayDate = dateFormat.format(new Date());
+		System.out.println(todayDate);
 		return todayDate;
+		
 	}
 
 }
