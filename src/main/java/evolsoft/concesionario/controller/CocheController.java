@@ -58,4 +58,10 @@ public class CocheController {
 		return cocheService.findCarsAlreadySold();
 	}
 
+	@RequestMapping(value = "/{id}/sellCar", method = RequestMethod.GET)
+	public void sellCar(@PathVariable("id") Integer idCoche, @RequestParam(required = true) Integer idCliente,
+			@RequestParam(required = true) Integer idVendedor) throws NotFoundExcept {
+		cocheService.newSell(idCoche, idCliente, idVendedor);
+	}
+
 }
