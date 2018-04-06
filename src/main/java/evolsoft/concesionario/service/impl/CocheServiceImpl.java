@@ -124,5 +124,30 @@ public class CocheServiceImpl implements CocheService {
 		});
 		return cochesInStock;
 	}
+	
+	@Override
+	  public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor) throws NotFoundExcept {
+	    Coche soldCar = Optional.ofNullable(cocheDAO.findOne(idCoche)).orElseThrow(() -> new NotFoundExcept());
+	    soldCar.setFechaVenta(todaysDate());
+	    addClienteToSoldCar(idCliente, soldCar);
+	    addVendedorToSoldCar(idVendedor, soldCar);
+	    update(idCoche, map(soldCar));
+	  }
+
+	  public void addClienteToSoldCar(Integer idCliente, Coche coche) throws NotFoundExcept {
+	    Optional<ClienteDTO> clienteCoche = Optional.ofNullable(clienteService.findById(idCliente));
+	    clienteCoche.ifPresent(cliente -> coche.setCliente(clienteService.map(cliente)));
+	  }
+
+	  public void addVendedorToSoldCar(Integer idVendedor, Coche coche) throws NotFoundExcept {
+	    Optional<VendedorDTO> vendedorCoche = Optional.ofNullable(vendedorService.findById(idVendedor));
+	    vendedorCoche.ifPresent(vendedor -> coche.setVendedor(vendedorService.map(vendedor)));
+	  }
+
+	  public String todaysDate() {
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+	    String todayDate = dateFormat.format(new Date());
+	    return todayDate;
+	  }
 
 }
