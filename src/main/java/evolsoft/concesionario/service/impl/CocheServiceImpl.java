@@ -74,7 +74,12 @@ public class CocheServiceImpl implements CocheService {
 
 	@Override
 	public Coche map(CocheDTO cocheDTO) {
-		return dozer.map(cocheDTO, Coche.class);
+		Coche coche = dozer.map(cocheDTO, Coche.class);
+		Optional.ofNullable(cocheDTO.getId()).ifPresent(optCocheDTO -> {
+			coche.setCliente(cocheDAO.findOne(optCocheDTO).getCliente()); 
+			coche.setVendedor(cocheDAO.findOne(optCocheDTO).getVendedor());
+			});
+		return coche;
 	}
 
 	@Override
