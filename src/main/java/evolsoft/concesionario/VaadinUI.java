@@ -59,7 +59,6 @@ public class VaadinUI extends UI {
 	VerticalLayout cocheEdition = new VerticalLayout();
 	HorizontalLayout cocheModification = new HorizontalLayout();
 	VerticalLayout cocheContent = new VerticalLayout();
-	HorizontalLayout cocheSellOut = new HorizontalLayout();
 
 	// Cliente
 	VerticalLayout clienteElimination = new VerticalLayout();
@@ -74,6 +73,11 @@ public class VaadinUI extends UI {
 	VerticalLayout vendedorEdition = new VerticalLayout();
 	HorizontalLayout vendedorModification = new HorizontalLayout();
 	VerticalLayout vendedorContent = new VerticalLayout();
+
+	// ClienteVendedor
+	VerticalLayout clienteVendedorSellOutContent = new VerticalLayout();
+	HorizontalLayout clienteVendedorContent = new HorizontalLayout();
+	HorizontalLayout cocheSellOut = new HorizontalLayout();
 
 	// Data
 	HorizontalLayout dataContent = new HorizontalLayout();
@@ -92,7 +96,6 @@ public class VaadinUI extends UI {
 	private TextField cocheAddMotorTF = new TextField("Motor");
 	private TextField cocheAddBastidorTF = new TextField("N. Bastidor");
 	private TextField cocheAddPrecioTF = new TextField("Precio");
-	private TextField cocheAddFechaVentaTF = new TextField("F. venta");
 
 	private TextField cocheEditIdTF = new TextField("ID Coche");
 	private TextField cocheEditMatriculaTF = new TextField("Matricula");
@@ -101,7 +104,6 @@ public class VaadinUI extends UI {
 	private TextField cocheEditMotorTF = new TextField("Motor");
 	private TextField cocheEditBastidorTF = new TextField("N. Bastidor");
 	private TextField cocheEditPrecioTF = new TextField("Precio");
-	private TextField cocheEditFechaVentaTF = new TextField("F. venta");
 
 	private TextField cocheDeleteIdTF = new TextField("ID coche");
 
@@ -234,7 +236,7 @@ public class VaadinUI extends UI {
 		buttonsFormat();
 		setDataGrids();
 		setWebContent();
-		Page.getCurrent().setTitle("Concesionario");
+		Page.getCurrent().setTitle("ConcesionarioApp");
 		setContent(webContent);
 	}
 
@@ -299,6 +301,17 @@ public class VaadinUI extends UI {
 	 * DATA SETTINGS
 	 */
 
+	private void setClienteVendedor() {
+		clienteVendedorContent.addComponent(clienteContent);
+		clienteVendedorContent.addComponent(vendedorContent);
+	}
+	
+	private void setClienteVendedorSellOut() {
+		setClienteVendedor();
+		clienteVendedorSellOutContent.addComponent(clienteVendedorContent);
+		clienteVendedorSellOutContent.addComponent(cocheSellOut);
+	}
+
 	private void setCocheSellOut() {
 		cocheSellOut.addComponent(new Label("Venta de coche"));
 		cocheSellOut.addComponent(cocheSellOutIdCocheTF);
@@ -323,7 +336,6 @@ public class VaadinUI extends UI {
 		cocheAddition.addComponent(cocheAddMotorTF);
 		cocheAddition.addComponent(cocheAddBastidorTF);
 		cocheAddition.addComponent(cocheAddPrecioTF);
-		cocheAddition.addComponent(cocheAddFechaVentaTF);
 		cocheAddition.addComponent(cocheAddButton);
 	}
 
@@ -336,7 +348,6 @@ public class VaadinUI extends UI {
 		cocheEdition.addComponent(cocheEditMotorTF);
 		cocheEdition.addComponent(cocheEditBastidorTF);
 		cocheEdition.addComponent(cocheEditPrecioTF);
-		cocheEdition.addComponent(cocheEditFechaVentaTF);
 		cocheEdition.addComponent(cocheEditButton);
 	}
 
@@ -351,10 +362,10 @@ public class VaadinUI extends UI {
 		setCocheModification();
 		setCocheElimination();
 		setCocheSellOut();
+		cocheContent.addComponent(new Label(""));
 		cocheContent.addComponent(gridCoche);
 		cocheContent.addComponent(cocheModification);
 		cocheContent.addComponent(cocheElimination);
-		cocheContent.addComponent(cocheSellOut);
 	}
 
 	private void setClienteElimination() {
@@ -448,9 +459,9 @@ public class VaadinUI extends UI {
 		setCocheContent();
 		setClienteContent();
 		setVendedorContent();
+		setClienteVendedorSellOut();
 		dataContent.addComponent(cocheContent);
-		dataContent.addComponent(clienteContent);
-		dataContent.addComponent(vendedorContent);
+		dataContent.addComponent(clienteVendedorSellOutContent);
 	}
 
 	private void listCoches() {
@@ -470,7 +481,7 @@ public class VaadinUI extends UI {
 	 */
 	private void setWebContent() {
 		setDataContent();
-		webContent.addComponent(new Label("Concesionario"));
+		webContent.addComponent(new Label("ConcesionarioApp"));
 		webContent.addComponent(dataContent);
 	}
 
@@ -492,7 +503,6 @@ public class VaadinUI extends UI {
 		cocheDTO.setMotor(cocheAddMotorTF.getValue());
 		cocheDTO.setNumBastidor((Integer.parseInt(cocheAddBastidorTF.getValue())));
 		cocheDTO.setPrecio(Double.parseDouble(cocheAddPrecioTF.getValue()));
-		cocheDTO.setFechaVenta(cocheAddFechaVentaTF.getValue());
 	}
 
 	private void addCocheEraseFields() {
@@ -502,7 +512,6 @@ public class VaadinUI extends UI {
 		cocheAddMotorTF.setValue("");
 		cocheAddBastidorTF.setValue("");
 		cocheAddPrecioTF.setValue("");
-		cocheAddFechaVentaTF.setValue("");
 	}
 
 	private void editCoche(ClickEvent event) throws NotFoundExcept {
@@ -524,8 +533,6 @@ public class VaadinUI extends UI {
 			cocheDTO.setNumBastidor(Integer.parseInt(cocheEditBastidorTF.getValue()));
 		if (!cocheEditPrecioTF.isEmpty())
 			cocheDTO.setPrecio(Double.parseDouble(cocheEditPrecioTF.getValue()));
-		if (!cocheEditFechaVentaTF.isEmpty())
-			cocheDTO.setFechaVenta(cocheEditFechaVentaTF.getValue());
 	}
 
 	private void editCocheEraseFields() {
@@ -534,7 +541,6 @@ public class VaadinUI extends UI {
 		cocheEditMotorTF.setValue("");
 		cocheEditBastidorTF.setValue("");
 		cocheEditPrecioTF.setValue("");
-		cocheEditFechaVentaTF.setValue("");
 	}
 
 	private void deleteCoche(ClickEvent event) throws NotFoundExcept {
