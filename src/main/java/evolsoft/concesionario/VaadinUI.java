@@ -106,8 +106,8 @@ public class VaadinUI extends UI {
 	private TextField cocheDeleteIdTF = new TextField("ID coche");
 
 	private TextField cocheSellOutIdCocheTF = new TextField("ID coche");
-	private TextField cocheSellOutIdClienteTF = new TextField("ID coche");
-	private TextField cocheSellOutIdVendedorTF = new TextField("ID coche");
+	private TextField cocheSellOutIdClienteTF = new TextField("ID cliente");
+	private TextField cocheSellOutIdVendedorTF = new TextField("ID vendedor");
 
 	// CLIENTE
 	private TextField clienteAddDniTF = new TextField("Dni");
@@ -166,13 +166,13 @@ public class VaadinUI extends UI {
 		}
 	});
 
-//	Button cocheSellButton = new Button("Marcar como vendidos", event -> {
-//		try {
-//			sellCar(event);
-//		} catch (NotFoundExcept e) {
-//			Notification.show(e.getMessage());
-//		}
-//	});
+	Button cocheSellButton = new Button("Marcar como vendidos", event -> {
+		try {
+			sellCar(event);
+		} catch (NotFoundExcept e) {
+			Notification.show(e.getMessage());
+		}
+	});
 
 	// CLIENTE
 
@@ -248,8 +248,8 @@ public class VaadinUI extends UI {
 		gridCoche.addColumn(cocheDTO -> cocheDTO.getModelo()).setCaption("Modelo");
 		gridCoche.addColumn(cocheDTO -> cocheDTO.getMotor()).setCaption("Motorización");
 		gridCoche.addColumn(cocheDTO -> cocheDTO.getNumBastidor()).setCaption("Num. Bastidor");
-		gridCoche.addColumn(cocheDTO -> cocheDTO.getPrecio()).setCaption("Marca");
-		gridCoche.addColumn(cocheDTO -> cocheDTO.getFechaVenta()).setCaption("Marca");
+		gridCoche.addColumn(cocheDTO -> cocheDTO.getPrecio()).setCaption("Precio");
+		gridCoche.addColumn(cocheDTO -> cocheDTO.getFechaVenta()).setCaption("F. Venta");
 		listCoches();
 	}
 
@@ -299,13 +299,13 @@ public class VaadinUI extends UI {
 	 * DATA SETTINGS
 	 */
 
-//	private void setCocheSellOut() {
-//		cocheSellOut.addComponent(new Label("Venta de coche"));
-//		cocheSellOut.addComponent(cocheSellOutIdCocheTF);
-//		cocheSellOut.addComponent(cocheSellOutIdClienteTF);
-//		cocheSellOut.addComponent(cocheSellOutIdVendedorTF);
-//		cocheSellOut.addComponent(cocheSellButton);
-//	}
+	private void setCocheSellOut() {
+		cocheSellOut.addComponent(new Label("Venta de coche"));
+		cocheSellOut.addComponent(cocheSellOutIdCocheTF);
+		cocheSellOut.addComponent(cocheSellOutIdClienteTF);
+		cocheSellOut.addComponent(cocheSellOutIdVendedorTF);
+		cocheSellOut.addComponent(cocheSellButton);
+	}
 
 	private void setCocheElimination() {
 		cocheElimination.addComponent(new Label("Eliminar Coche"));
@@ -350,7 +350,7 @@ public class VaadinUI extends UI {
 	private void setCocheContent() {
 		setCocheModification();
 		setCocheElimination();
-//		setCocheSellOut();
+		setCocheSellOut();
 		cocheContent.addComponent(gridCoche);
 		cocheContent.addComponent(cocheModification);
 		cocheContent.addComponent(cocheElimination);
@@ -651,11 +651,12 @@ public class VaadinUI extends UI {
 		this.refresh(event);
 	}
 
-//	private void sellCar(ClickEvent event) throws NotFoundExcept {
-//		cocheService.newSell(Integer.parseInt(cocheSellOutIdCocheTF.getValue()),
-//				Integer.parseInt(cocheSellOutIdClienteTF.getValue()), Integer.parseInt(cocheSellOutIdVendedorTF.getValue()));
-//		this.refresh(event);
-//	}
+	private void sellCar(ClickEvent event) throws NotFoundExcept {
+		cocheService.newSell(Integer.parseInt(cocheSellOutIdCocheTF.getValue()),
+				Integer.parseInt(cocheSellOutIdClienteTF.getValue()),
+				Integer.parseInt(cocheSellOutIdVendedorTF.getValue()));
+		this.refresh(event);
+	}
 
 	public void refresh(ClickEvent clickEvent) throws NotFoundExcept {
 		listCoches();
