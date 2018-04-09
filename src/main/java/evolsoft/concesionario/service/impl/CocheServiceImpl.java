@@ -76,9 +76,9 @@ public class CocheServiceImpl implements CocheService {
 	public Coche map(CocheDTO cocheDTO) {
 		Coche coche = dozer.map(cocheDTO, Coche.class);
 		Optional.ofNullable(cocheDTO.getId()).ifPresent(optCocheDTO -> {
-			coche.setCliente(cocheDAO.findOne(optCocheDTO).getCliente()); 
+			coche.setCliente(cocheDAO.findOne(optCocheDTO).getCliente());
 			coche.setVendedor(cocheDAO.findOne(optCocheDTO).getVendedor());
-			});
+		});
 		return coche;
 	}
 
