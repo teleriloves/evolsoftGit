@@ -98,10 +98,6 @@ public class CocheServiceImpl implements CocheService {
 		return coches;
 	}
 
-	/*
-	 * 9270f65223888119aa968173587955d90c51f6ce sha1 de la v1.0.0 para la práctica de git intermedio
-	 */
-	
 	@Override
 	public List<CocheDTO> findCarsAlreadySold() {
 		List<Coche> coches = cocheDAO.findCarsAlreadySold();
@@ -152,13 +148,6 @@ public class CocheServiceImpl implements CocheService {
 	public void addVendedorToSoldCar(Integer idVendedor, Coche coche) throws NotFoundExcept {
 		Optional<VendedorDTO> vendedorCoche = Optional.ofNullable(vendedorService.findById(idVendedor));
 		vendedorCoche.ifPresent(vendedor -> coche.setVendedor(vendedorService.map(vendedor)));
-	}
-
-	public String todaysDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-		String todayDate = dateFormat.format(new Date());
-		return todayDate;
-
 	}
 
 }
