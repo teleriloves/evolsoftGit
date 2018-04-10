@@ -21,28 +21,28 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET) //@GetMapping	
 	public List<ClienteDTO> retrieveAll(@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer size) {
 		return clienteService.findAll(page, size);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET) //@GetMapping
 	public ClienteDTO findOne(@PathVariable("id") Integer id) throws NotFoundExcept {
 		return clienteService.findById(id);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST) //@PostMapping
 	public ClienteDTO create(@RequestBody ClienteDTO clienteDTO) {
 		return clienteService.create(clienteDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) //@PutMapping
 	public void update(@PathVariable("id") Integer id, @RequestBody ClienteDTO clienteDTO) {
 		clienteService.update(id, clienteDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) //@DeleteMapping
 	public void update(@PathVariable("id") Integer id) {
 		clienteService.delete(id);
 	}

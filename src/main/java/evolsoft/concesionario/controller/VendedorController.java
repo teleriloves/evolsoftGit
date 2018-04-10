@@ -21,28 +21,28 @@ public class VendedorController {
 	@Autowired
 	private VendedorService vendedorService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET) //@GetMapping
 	public List<VendedorDTO> retrieveAll(@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer size) {
 		return vendedorService.findAll(page, size);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET) //@GetMapping("/{id}")
 	public VendedorDTO findOne(@PathVariable("id") Integer id) throws NotFoundExcept {
 		return vendedorService.findById(id);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST) //@PostMapping	
 	public VendedorDTO create(@RequestBody VendedorDTO vendedorDTO) {
 		return vendedorService.create(vendedorDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) //@PutMapping
 	public void update(@PathVariable("id") Integer id, @RequestBody VendedorDTO vendedorDTO) {
 		vendedorService.update(id, vendedorDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) //@DeleteMapping
 	public void update(@PathVariable("id") Integer id) {
 		vendedorService.delete(id);
 	}
