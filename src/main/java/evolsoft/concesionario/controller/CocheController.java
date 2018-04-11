@@ -66,7 +66,7 @@ public class CocheController {
 
 	@PutMapping("/sellCar")
 	public void sellCar(@RequestBody SoldCarDTO soldCarDTO) throws NotFoundExcept {
-		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(), soldCarDTO.getIdCoche());
+		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(), soldCarDTO.getIdVendedor());
 	}
 
 	@PostMapping("/insertList")
