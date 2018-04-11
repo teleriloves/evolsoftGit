@@ -22,4 +22,6 @@ public interface VendedorService {
 
 	public VendedorDTO map(Vendedor vendedor);
 
+	void createList(List<VendedorDTO> listVendedorDto);
+
 }

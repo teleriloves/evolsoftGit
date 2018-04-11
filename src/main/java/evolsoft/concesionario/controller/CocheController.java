@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import evolsoft.concesionario.dto.CocheDTO;
 import evolsoft.concesionario.dto.SoldCarDTO;
+import evolsoft.concesionario.dto.CocheDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
 import evolsoft.concesionario.service.CocheService;
 
@@ -65,7 +66,11 @@ public class CocheController {
 
 	@PutMapping("/sellCar")
 	public void sellCar(@RequestBody SoldCarDTO soldCarDTO) throws NotFoundExcept {
-		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(), soldCarDTO.getIdVendedor());
+		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(), soldCarDTO.getIdCoche());
 	}
 
+	@PostMapping("/insertList")
+	public void createList(@RequestBody List<CocheDTO> listCocheDto) {
+		cocheService.createList(listCocheDto);
+	}
 }

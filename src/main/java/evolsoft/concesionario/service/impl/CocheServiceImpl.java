@@ -147,4 +147,9 @@ public class CocheServiceImpl implements CocheService {
 		vendedorCoche.ifPresent(vendedor -> coche.setVendedor(vendedorService.map(vendedor)));
 	}
 
+	@Override
+	public void createList(List<CocheDTO> listCocheDto) {
+		listCocheDto.forEach(cocheDTO -> cocheDAO.save(map(cocheDTO)));
+	}
+
 }

@@ -22,4 +22,6 @@ public interface ClienteService {
 
 	public ClienteDTO map(Cliente cliente);
 
+	void createList(List<ClienteDTO> listClienteDto);
+
 }

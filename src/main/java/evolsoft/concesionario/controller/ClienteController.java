@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +48,11 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	public void update(@PathVariable("id") Integer id) {
 		clienteService.delete(id);
+	}
+	
+	@PostMapping("/insertList")
+	public void createList(@RequestBody List<ClienteDTO> listClienteDto) {
+		clienteService.createList(listClienteDto);
 	}
 
 }

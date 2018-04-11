@@ -70,4 +70,9 @@ public class VendedorServiceImpl implements VendedorService {
 		return dozer.map(vendedor, VendedorDTO.class);
 	}
 
+	@Override
+	public void createList(List<VendedorDTO> listVendedorDto) {
+		listVendedorDto.forEach(vendedorDTO -> vendedorDAO.save(map(vendedorDTO)));
+	}
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import evolsoft.concesionario.dto.VendedorDTO;
+import evolsoft.concesionario.dto.VendedorDTO;
 import evolsoft.concesionario.exception.NotFoundExcept;
 import evolsoft.concesionario.service.VendedorService;
 
@@ -47,8 +48,13 @@ public class VendedorController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void update(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") Integer id) {
 		vendedorService.delete(id);
+	}
+	
+	@PostMapping("/insertList")
+	public void createList(@RequestBody List<VendedorDTO> listVendedorDto) {
+		vendedorService.createList(listVendedorDto);
 	}
 
 }

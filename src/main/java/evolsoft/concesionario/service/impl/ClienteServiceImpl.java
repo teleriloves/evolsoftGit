@@ -70,4 +70,9 @@ public class ClienteServiceImpl implements ClienteService {
 		return dozer.map(cliente, ClienteDTO.class);
 	}
 
+	@Override
+	public void createList(List<ClienteDTO> listClienteDto) {
+		listClienteDto.forEach(clienteDTO -> clienteDAO.save(map(clienteDTO)));
+	}
+
 }
