@@ -3,7 +3,11 @@ package evolsoft.concesionario.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,28 +25,28 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@RequestMapping(method = RequestMethod.GET) //@GetMapping	
+	@GetMapping	
 	public List<ClienteDTO> retrieveAll(@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer size) {
 		return clienteService.findAll(page, size);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET) //@GetMapping
+	@GetMapping("/{id}")
 	public ClienteDTO findOne(@PathVariable("id") Integer id) throws NotFoundExcept {
 		return clienteService.findById(id);
 	}
 
-	@RequestMapping(method = RequestMethod.POST) //@PostMapping
+	@PostMapping
 	public ClienteDTO create(@RequestBody ClienteDTO clienteDTO) {
 		return clienteService.create(clienteDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) //@PutMapping
+	@PutMapping("/{id}")
 	public void update(@PathVariable("id") Integer id, @RequestBody ClienteDTO clienteDTO) {
 		clienteService.update(id, clienteDTO);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) //@DeleteMapping
+	@DeleteMapping("/{id}")
 	public void update(@PathVariable("id") Integer id) {
 		clienteService.delete(id);
 	}
