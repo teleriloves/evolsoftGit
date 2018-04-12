@@ -24,7 +24,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@GetMapping	
+	@GetMapping
 	public List<ClienteDTO> retrieveAll(@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer size) {
 		return clienteService.findAll(page, size);
@@ -46,10 +46,10 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void update(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") Integer id) {
 		clienteService.delete(id);
 	}
-	
+
 	@PostMapping("/insertList")
 	public void createList(@RequestBody List<ClienteDTO> listClienteDto) {
 		clienteService.createList(listClienteDto);
