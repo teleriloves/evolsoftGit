@@ -1,10 +1,7 @@
 package evolsoft.concesionario.model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +11,6 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "person_type_id", columnDefinition = "TINYINT(1)")
 public class Actor {
 
 	@Id
