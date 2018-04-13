@@ -24,13 +24,13 @@ public interface CocheDAO extends PagingAndSortingRepository<Coche, Integer> {
 	@Query(value = "select c from Coche c order by c.precio asc")
 	public List<Coche> listCarsSortedByPrice();
 
-	@Query(value = "select c from Coche c where c.fechaVenta is not null")
+	@Query(value = "select c from Coche c where c.fechaVenta is not null and c.fechaVenta != ''")
 	public List<Coche> findCarsAlreadySold();
 
 	@Query(value = "select c from Coche c where c.precio between :minPrice and :maxPrice")
 	public List<Coche> findCarsBtwPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
-	@Query(value = "select c from Coche c where c.fechaVenta is null")
+	@Query(value = "select c from Coche c where c.fechaVenta is null or c.fechaVenta = ''")
 	public List<Coche> findCarsInStock();
 
 }
