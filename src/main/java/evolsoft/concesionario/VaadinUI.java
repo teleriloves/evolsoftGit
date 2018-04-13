@@ -59,6 +59,7 @@ public class VaadinUI extends UI {
 	VerticalLayout cocheEdition = new VerticalLayout();
 	HorizontalLayout cocheModification = new HorizontalLayout();
 	VerticalLayout cocheContent = new VerticalLayout();
+	HorizontalLayout cocheGridButtonsStatus = new HorizontalLayout();
 
 	// Cliente
 	VerticalLayout clienteElimination = new VerticalLayout();
@@ -227,6 +228,30 @@ public class VaadinUI extends UI {
 			Notification.show(e.getMessage());
 		}
 	});
+	
+	Button showSoldCarsButton = new Button(" Vendidos ", event -> {
+		try {
+			setGridCocheToSoldCarsEvent(event);
+		} catch (NotFoundExcept e) {
+			Notification.show(e.getMessage());
+		}
+	});
+	
+	Button showStockCarsButton = new Button(" En Stock ", event -> {
+		try {
+			setGridCocheToStockEvent(event);
+		} catch (NotFoundExcept e) {
+			Notification.show(e.getMessage());
+		}
+	});
+	
+	Button showAllCarsButton = new Button("   Todos   ", event -> {
+		try {
+			setGridCocheDefault(event);
+		} catch (NotFoundExcept e) {
+			Notification.show(e.getMessage());
+		}
+	});
 
 	/*
 	 * Init Method
@@ -295,12 +320,23 @@ public class VaadinUI extends UI {
 		vendedorAddButton.setIcon(VaadinIcons.CHECK_CIRCLE);
 		vendedorDeleteButton.setIcon(VaadinIcons.CLOSE_CIRCLE);
 		vendedorEditButton.setIcon(VaadinIcons.RETWEET);
+		cocheSellButton.setIcon(VaadinIcons.CASH);
+		showAllCarsButton.setIcon(VaadinIcons.CAR);
+		showSoldCarsButton.setIcon(VaadinIcons.CAR);
+		showStockCarsButton.setIcon(VaadinIcons.CAR);
 	}
 
 	/*
 	 * DATA SETTINGS
 	 */
 
+	private void setCocheGridButtonsStatus() {
+		cocheGridButtonsStatus.addComponent(showAllCarsButton);
+		cocheGridButtonsStatus.addComponent(showStockCarsButton);
+		cocheGridButtonsStatus.addComponent(showSoldCarsButton);
+		
+	}
+	
 	private void setClienteVendedor() {
 		clienteVendedorContent.addComponent(clienteContent);
 		clienteVendedorContent.addComponent(vendedorContent);
@@ -362,7 +398,10 @@ public class VaadinUI extends UI {
 		setCocheModification();
 		setCocheElimination();
 		setCocheSellOut();
-		cocheContent.addComponent(new Label(""));
+		setCocheGridButtonsStatus();
+//		cocheContent.addComponent(new Label(""));
+		cocheContent.addComponent(new Label("COCHES"));
+		cocheContent.addComponent(cocheGridButtonsStatus);
 		cocheContent.addComponent(gridCoche);
 		cocheContent.addComponent(cocheModification);
 		cocheContent.addComponent(cocheElimination);
@@ -407,6 +446,7 @@ public class VaadinUI extends UI {
 	private void setClienteContent() {
 		setClienteModification();
 		setClienteElimination();
+		clienteContent.addComponent(new Label("CLIENTES"));
 		clienteContent.addComponent(gridCliente);
 		clienteContent.addComponent(clienteModification);
 		clienteContent.addComponent(clienteElimination);
@@ -450,6 +490,7 @@ public class VaadinUI extends UI {
 	private void setVendedorContent() {
 		setVendedorModification();
 		setVendedorElimination();
+		vendedorContent.addComponent(new Label("VENDEDORES"));
 		vendedorContent.addComponent(gridVendedor);
 		vendedorContent.addComponent(vendedorModification);
 		vendedorContent.addComponent(vendedorElimination);
@@ -663,7 +704,19 @@ public class VaadinUI extends UI {
 				Integer.parseInt(cocheSellOutIdVendedorTF.getValue()));
 		this.refresh(event);
 	}
-
+	
+	private void setGridCocheToStockEvent(ClickEvent clickEvent) throws NotFoundExcept {
+		gridCoche.setItems(cocheService.findCochesInStock());
+	}
+	
+	private void setGridCocheToSoldCarsEvent(ClickEvent clickEvent) throws NotFoundExcept {
+		gridCoche.setItems(cocheService.findCarsAlreadySold());
+	}
+	
+	private void setGridCocheDefault(ClickEvent clickEvent) throws NotFoundExcept {
+		listCoches();
+	}
+	
 	public void refresh(ClickEvent clickEvent) throws NotFoundExcept {
 		listCoches();
 		listClientes();
